@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <title>Aftelklok</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #4e73df, #1cc88a);
+            color: white;
+            text-align: center;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        #countdown {
+            font-size: 2rem;
+            background: rgba(0,0,0,0.3);
+            padding: 20px 40px;
+            border-radius: 15px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Aftellen naar 20 februari 2026 - 12:00 uur</h1>
+    <div id="countdown">Laden...</div>
+
+    <script>
+        const targetDate = new Date(2026, 1, 20, 12, 0, 0).getTime();
+        // Maand is 0-indexed: 1 = februari
+
+        const countdownElement = document.getElementById("countdown");
+
+        const interval = setInterval(function() {
+            const now = new Date().getTime();
+            const distance = targetDate - now;
+
+            if (distance < 0) {
+                clearInterval(interval);
+                countdownElement.innerHTML = "🎉 Het is zover!";
+                return;
+            }
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            countdownElement.innerHTML =
+                days + " dagen " +
+                hours + " uur " +
+                minutes + " minuten " +
+                seconds + " seconden ";
+        }, 1000);
+    </script>
+
+</body>
+</html>
